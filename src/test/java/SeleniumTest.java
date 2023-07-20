@@ -14,19 +14,24 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class SeleniumTest {
 
-    private WebDriver driver;
+    private WebDriver webDriver;
 
     @Before
     public void setUp() {
         // Set up ChromeDriver path
         System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
 
-        // Create a new ChromeDriver instance
-        driver = new ChromeDriver();
+        // Get file
         File file = new File("StyledElements.html");
+        String path = "file://" + file.getAbsolutePath();
+
+        // Create a new ChromeDriver instance
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+        webDriver = new ChromeDriver(options);
+
         // Open the HTML file
-        driver.get(file.getAbsolutePath());
-    }
+        webDriver.get(path);
     
     @Test
     public void testItalicText() {
